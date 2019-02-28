@@ -1,51 +1,79 @@
-//console.log("funciona");
-
-var arrayDeUsuarios = [
-    {
-    id:1,
-    nombre: "Ana"
+//Array de autores.
+ var autores = [
+    {nombre: "Jose",
+    id: 1,
+    bio: "Esta es la bíografia de Jose, relleno relleno relleno.",
+    imagen: "joseimg" ,  
     },
-    {
-    id:2,
-    nombre: "Mauro"
-    }
-];
+    {nombre: "Romina",
+    id: 2,
+    bio: "Esta es la bíografia de Romina, relleno relleno relleno.",
+    imagen: "rominaimg"  , 
+    },
+    {nombre: "Martin",
+    id: 3,
+    bio: "Esta es la bíografia de Martin, relleno relleno relleno.",
+    imagen: "martinimg"   ,
+    },
+    {nombre: "Julia",
+    id: 4,
+    bio: "Esta es la bíografia de Julia, relleno relleno relleno.",
+    imagen: "juliaimg",   
+    },
+    {nombre: "Florencia",
+    id: 5,
+    bio: "Esta es la bíografia de Florencia, relleno relleno relleno.",
+    imagen: "florenciaimg",   
+    },
+    {nombre: "Diego",
+    id: 6,
+    bio: "Esta es la bíografia de Diego, relleno relleno relleno.",
+    imagen: "diegoimg",   
+    },
+ ];
+ 
 
-for (var i = 0; i < arrayDeUsuarios.length; i++) {
-    console.log("arrayDeUsuarios en el indice " + i );
-    console.log(arrayDeUsuarios[i]);
+function cargarAutores() {
+
+    for (var i = 0; i < autores.length; i++) {
+
+        var cardContainer = document.createElement("div");
+        var cardImg = document.createElement("div");
+        var cardTitle = document.createElement("div");
+        var cardBody = document.createElement("p");
+        var cardSocial = document.createElement("div");
+        var logoTw = document.createElement("i");
+        var logoFb = document.createElement("i");
+        var logoIg = document.createElement("i");
+
+        cardContainer.appendChild(cardTitle);
+        cardContainer.appendChild(cardImg);
+        cardContainer.appendChild(cardBody);
+        cardContainer.appendChild(cardSocial);
+        cardSocial.appendChild(logoTw);    
+        cardSocial.appendChild(logoFb);  
+        cardSocial.appendChild(logoIg);  
+
+        document.getElementById("contenedor-cartas").appendChild(cardContainer);
+
+        cardContainer.className = 'card-container';    
+        cardImg.className = 'card-bg-img bg1';
+        cardTitle.className = 'card-title';
+        cardBody.className = 'card-body';
+        cardSocial.className = 'card-social';
+        logoTw.className = 'fab fa-twitter';
+        logoFb.className = 'fab fa-facebook';
+        logoIg.className = 'fab fa-instagram';
+
+        cardTitle.appendChild(document.createTextNode(autores[i].nombre));
+        cardBody.appendChild(document.createTextNode(autores[i].bio));
+
+        document.getElementsByClassName("card-bg-img bg1")[i].style.background = "url(images/" + autores[i].imagen + ".jpg)";
+        document.getElementsByClassName("card-bg-img bg1")[i].style.backgroundSize = "100%";
+
+        }
+
+
 }
-
-
-
-
-function mostrarUsuarios () {
-    console.log("mostrar usuarios");
-
-}
-
-function mostrarPosts() {
-    // document.getElementById("contenedor-cartas").style.display = "none";
-    // document.getElementById("post-cont").style.display = "flex";
-    // document.getElementById("texto-encabezado").innerHTML = "nombreUsuario";
-    // document.getElementById("flecha").style.display = "initial";
-    console.log("Click en el div")
-}
-function mostrarAutores() {
-    document.getElementById("flecha").style.display = "none";
-    document.getElementById("contenedor-cartas").style.display = "flex";
-    document.getElementById("post-cont").style.display = "none";
-    document.getElementById("texto-encabezado").innerHTML = "Autores";
-}
-
-
-function myFunction() {
-  var para = document.createElement("P");
-  var t = document.createTextNode("This is a paragraph.");
-  para.appendChild(t);
-  document.getElementById("myDIV").appendChild(para);
-  para.className = "algo";
-  para.onclick = function () {
-      //función
-}
-
+//Carga función cargarAutores al inicio.
+window.onload = cargarAutores;
