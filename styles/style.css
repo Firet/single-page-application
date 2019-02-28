@@ -56,7 +56,8 @@ h1 {
 
     background: url(https://placeimg.com/300/150/nature);
         background-size: auto;
-    background-size: auto;
+    background-size: 100%;
+    background-position: top;   
     border-radius: 50%;
     width: 120px;
     margin: auto;
@@ -75,6 +76,8 @@ h1 {
 #contenedor-cartas {
     display: flex;
     flex-wrap: wrap;
+    width: 90vw;
+    margin: auto;
 }
 .card-container {
     background-color: white;
