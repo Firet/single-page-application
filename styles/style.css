@@ -9,6 +9,13 @@ body {
     background: linear-gradient(to right, #614385, #516395);
     padding-top: 14px;
 }
+
+h1 {
+    color: white;
+    text-align: center;
+    margin: 0;
+}
+
 #flecha {
     position: absolute;
     top: 20px;
@@ -17,79 +24,37 @@ body {
     color: white;
     display: none;
 }
-h1 {
-    color: white;
-    text-align: center;
-    margin: 0;
-}
 
-.autores {
-    width: 30%;
-    height: 250px;
-    background-color: aqua;
-    margin: 3%;
-}
-
-.posts {
-    width: 30%;
-    height: 250px;
-    background-color: red;
-    margin: 3%;
-}
-
-#contenedor {
-    display: flex;
-    flex-wrap: nowrap;
-    justify-content: space-between;
-}
-
-#post-cont {
-    display: none;
-}
-
-.card-title {
-    font-size: 1.25em;
-    margin: 10px;
-}
-
-.bg1 {
-
-    background: url(https://placeimg.com/300/150/nature);
-        background-size: auto;
-    background-size: 100%;
-    background-position: top;   
-    border-radius: 50%;
-    width: 120px;
-    margin: auto;
-        margin-top: auto;
-    margin-top: 20px;
-        border: 4px solid #604284;
-    height: 120px;
-}
-
-}
-
-.card-body {
-    padding: 20px 30px 30px;
-    
-}
 #contenedor-cartas {
-    display: flex;
-    flex-wrap: wrap;
-    width: 90vw;
+    margin: 10px;
+    max-width: 600px;
     margin: auto;
 }
-.card-container {
+#contenedor-post {
+    margin: 10px;
+    max-width: 600px;
+    margin: auto;
+}
+.botones-autores {
     background-color: white;
     box-shadow: 0 4px 10px rgba(0,0,0,.4), 0 5px 15px rgba(0,0,0,.1);
-    width: 180px;
-    margin: 20px;
-    padding: 10px;
+    margin: 5%;
     text-align: center;
-    }
-.card-social {
-    display: flex;
-    justify-content: space-around;
-    font-size: 1.5em;
+    width: 40%;
+    float: left;
+    margin: 3% 5%;
+    border: none;
     padding: 15px;
+}
+
+.post {
+    background-color: white;
+    box-shadow: 0 4px 10px rgba(0,0,0,.4), 0 5px 15px rgba(0,0,0,.1);
+    margin: 2%;
+    text-align: center;
+    width: 41%;
+    float: left;
+    border: none;
+    padding: 15px;
+    min-height: 320px;
 }

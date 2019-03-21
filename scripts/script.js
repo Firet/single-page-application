@@ -1,79 +1,85 @@
-//Array de autores.
- var autores = [
-    {nombre: "Jose",
-    id: 1,
-    bio: "Esta es la bíografia de Jose, relleno relleno relleno.",
-    imagen: "joseimg" ,  
-    },
-    {nombre: "Romina",
-    id: 2,
-    bio: "Esta es la bíografia de Romina, relleno relleno relleno.",
-    imagen: "rominaimg"  , 
-    },
-    {nombre: "Martin",
-    id: 3,
-    bio: "Esta es la bíografia de Martin, relleno relleno relleno.",
-    imagen: "martinimg"   ,
-    },
-    {nombre: "Julia",
-    id: 4,
-    bio: "Esta es la bíografia de Julia, relleno relleno relleno.",
-    imagen: "juliaimg",   
-    },
-    {nombre: "Florencia",
-    id: 5,
-    bio: "Esta es la bíografia de Florencia, relleno relleno relleno.",
-    imagen: "florenciaimg",   
-    },
-    {nombre: "Diego",
-    id: 6,
-    bio: "Esta es la bíografia de Diego, relleno relleno relleno.",
-    imagen: "diegoimg",   
-    },
- ];
- 
+var nuevoArray = [];
 
-function cargarAutores() {
+pedirUsuarios();
 
-    for (var i = 0; i < autores.length; i++) {
-
-        var cardContainer = document.createElement("div");
-        var cardImg = document.createElement("div");
-        var cardTitle = document.createElement("div");
-        var cardBody = document.createElement("p");
-        var cardSocial = document.createElement("div");
-        var logoTw = document.createElement("i");
-        var logoFb = document.createElement("i");
-        var logoIg = document.createElement("i");
-
-        cardContainer.appendChild(cardTitle);
-        cardContainer.appendChild(cardImg);
-        cardContainer.appendChild(cardBody);
-        cardContainer.appendChild(cardSocial);
-        cardSocial.appendChild(logoTw);    
-        cardSocial.appendChild(logoFb);  
-        cardSocial.appendChild(logoIg);  
-
-        document.getElementById("contenedor-cartas").appendChild(cardContainer);
-
-        cardContainer.className = 'card-container';    
-        cardImg.className = 'card-bg-img bg1';
-        cardTitle.className = 'card-title';
-        cardBody.className = 'card-body';
-        cardSocial.className = 'card-social';
-        logoTw.className = 'fab fa-twitter';
-        logoFb.className = 'fab fa-facebook';
-        logoIg.className = 'fab fa-instagram';
-
-        cardTitle.appendChild(document.createTextNode(autores[i].nombre));
-        cardBody.appendChild(document.createTextNode(autores[i].bio));
-
-        document.getElementsByClassName("card-bg-img bg1")[i].style.background = "url(images/" + autores[i].imagen + ".jpg)";
-        document.getElementsByClassName("card-bg-img bg1")[i].style.backgroundSize = "100%";
-
+function pedirUsuarios(){
+    var request = new XMLHttpRequest();
+    request.open("GET", "https://jsonplaceholder.typicode.com/users");
+    request.send();
+        request.onreadystatechange = function() {
+        if (this.readyState == 4) {
+            if (this.status == 200) {
+                console.log("readyState es 4 y status es 200");
+                JSONParseado = JSON.parse(request.responseText);
+                console.log("Las respuestas JSON (Usuarios) son: ");
+                console.log(JSONParseado);
+                CrearNuevoArray();
+                crearBotones();
+            }
         }
-
-
+    }    
 }
-//Carga función cargarAutores al inicio.
-window.onload = cargarAutores;
+
+function CrearNuevoArray() {
+    for (var i = 0; i < JSONParseado.length; i++){
+        nuevoArray.push({nombre: JSONParseado[i].name,id: JSONParseado[i].id})
+    }
+    console.log("Se ejecutó CrearNuevoArray");
+    console.log("nuevoArray:");
+    console.log(nuevoArray)
+};
+
+function crearBotones(){
+    for (var i = 0; i < nuevoArray.length; i++) {   
+        var botonesAutores = document.createElement("button");     
+        document.getElementById("contenedor-cartas").appendChild(botonesAutores);
+        botonesAutores.className = 'botones-autores';
+        botonesAutores.appendChild(document.createTextNode(nuevoArray[i].nombre));
+        botonesAutores.setAttribute("id", nuevoArray[i].id);
+        botonesAutores.addEventListener("click", cargarPost)
+    }
+    console.log("Se ejecutó crearBotones");
+}
+
+function cargarPost(){
+    var requestPosts = new XMLHttpRequest();
+    requestPosts.open("GET", "https://jsonplaceholder.typicode.com/posts?userId=" + this.id);
+    requestPosts.send();
+    requestPosts.onreadystatechange = function() {
+        if (this.readyState == 4) {
+            if (this.status == 200) {
+                console.log("readyState es 4 y status es 200");
+                PostsParseado = JSON.parse(requestPosts.responseText);
+                console.log("Posts de usuario:");
+                console.log(PostsParseado);
+                crearPosts();
+            }
+        }
+    };
+}
+
+function crearPosts() {
+    document.getElementById("contenedor-cartas").style.display = "none";    
+    document.getElementById("texto-encabezado").innerText = "Posts";
+    for (var i = 0; i < PostsParseado.length; i++) {   
+        var post = document.createElement("div");   
+        var titlePost = document.createElement("h2");  
+        var bodyPost = document.createElement("p");
+        document.getElementById("contenedor-post").appendChild(post);
+        post.appendChild(titlePost);
+        post.appendChild(bodyPost);
+        post.className = 'post';
+        titlePost.appendChild(document.createTextNode(PostsParseado[i].title));
+        bodyPost.appendChild(document.createTextNode(PostsParseado[i].body)); 
+        document.getElementById("flecha").style.display = "block";        
+    }
+    console.log("Se ejecutó crearPost")
+}
+
+function volverUsuarios(){
+    document.getElementById("texto-encabezado").innerText = "Usuarios";
+    document.getElementById("contenedor-post").innerHTML = "";
+    document.getElementById("flecha").style.display = "none";   
+    document.getElementById("contenedor-cartas").style.display = "block";
+    console.log("Se ejecutó volverUsuarios")
+}
