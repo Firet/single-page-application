@@ -9,7 +9,14 @@ body {
     background: linear-gradient(to right, #614385, #516395);
     padding-top: 14px;
 }
+.oculto {
+    display: none;
+}
 
+.pvisible {
+    width: 60%;
+    margin: 4em auto;
+}
 h1 {
     color: white;
     text-align: center;
@@ -45,6 +52,7 @@ h1 {
     margin: 3% 5%;
     border: none;
     padding: 15px;
+    font-size: 1.2em;
 }
 
 .post {
@@ -52,9 +60,8 @@ h1 {
     box-shadow: 0 4px 10px rgba(0,0,0,.4), 0 5px 15px rgba(0,0,0,.1);
     margin: 2%;
     text-align: center;
-    width: 41%;
+    width: 100%;
     float: left;
     border: none;
     padding: 15px;
-    min-height: 320px;
 }

@@ -1,30 +1,12 @@
 var nuevoArray = [];
 
-pedirUsuarios();
+pedirUsuarios(crearNuevoArray, crearBotones);
 
-function pedirUsuarios(){
-    var request = new XMLHttpRequest();
-    request.open("GET", "https://jsonplaceholder.typicode.com/users");
-    request.send();
-        request.onreadystatechange = function() {
-        if (this.readyState == 4) {
-            if (this.status == 200) {
-                console.log("readyState es 4 y status es 200");
-                JSONParseado = JSON.parse(request.responseText);
-                console.log("Las respuestas JSON (Usuarios) son: ");
-                console.log(JSONParseado);
-                CrearNuevoArray();
-                crearBotones();
-            }
-        }
-    }    
-}
-
-function CrearNuevoArray() {
+function crearNuevoArray() {
     for (var i = 0; i < JSONParseado.length; i++){
         nuevoArray.push({nombre: JSONParseado[i].name,id: JSONParseado[i].id})
     }
-    console.log("Se ejecutó CrearNuevoArray");
+    console.log("Se ejecutó crearNuevoArray");
     console.log("nuevoArray:");
     console.log(nuevoArray)
 };
@@ -36,26 +18,9 @@ function crearBotones(){
         botonesAutores.className = 'botones-autores';
         botonesAutores.appendChild(document.createTextNode(nuevoArray[i].nombre));
         botonesAutores.setAttribute("id", nuevoArray[i].id);
-        botonesAutores.addEventListener("click", cargarPost)
+        botonesAutores.addEventListener("click", pedirPost);
     }
     console.log("Se ejecutó crearBotones");
-}
-
-function cargarPost(){
-    var requestPosts = new XMLHttpRequest();
-    requestPosts.open("GET", "https://jsonplaceholder.typicode.com/posts?userId=" + this.id);
-    requestPosts.send();
-    requestPosts.onreadystatechange = function() {
-        if (this.readyState == 4) {
-            if (this.status == 200) {
-                console.log("readyState es 4 y status es 200");
-                PostsParseado = JSON.parse(requestPosts.responseText);
-                console.log("Posts de usuario:");
-                console.log(PostsParseado);
-                crearPosts();
-            }
-        }
-    };
 }
 
 function crearPosts() {
@@ -63,7 +28,7 @@ function crearPosts() {
     document.getElementById("texto-encabezado").innerText = "Posts";
     for (var i = 0; i < PostsParseado.length; i++) {   
         var post = document.createElement("div");   
-        var titlePost = document.createElement("h2");  
+        var titlePost = document.createElement("h3");  
         var bodyPost = document.createElement("p");
         document.getElementById("contenedor-post").appendChild(post);
         post.appendChild(titlePost);
@@ -71,6 +36,7 @@ function crearPosts() {
         post.className = 'post';
         titlePost.appendChild(document.createTextNode(PostsParseado[i].title));
         bodyPost.appendChild(document.createTextNode(PostsParseado[i].body)); 
+        bodyPost.className = 'oculto';
         document.getElementById("flecha").style.display = "block";        
     }
     console.log("Se ejecutó crearPost")
